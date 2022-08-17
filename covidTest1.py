@@ -1,15 +1,12 @@
 from nose.tools import assert_equal, assert_raises, raises
 
 
-DATA = "daily-tests-per-thousand-people-smoothed-7-day-20200729.csv"
-
 
 def clean (data_row):
     data_rowlst=[]
 
     data_rowlst.append(data_row)
   
-
     list1=[]
     for i in data_rowlst:
         line = i.split("/n")
@@ -30,16 +27,13 @@ def clean (data_row):
     final2 = "/n".join(final)
     return final2
 
-DATA = "daily-tests-per-thousand-people-smoothed-7-day-20200729.csv"
-with open(DATA,'r') as file:
-    print(clean(file.readline()))
+
+
 
 DATA = "daily-tests-per-thousand-people-smoothed-7-day-20200729.csv"
 with open(DATA,'r') as file:
-    for line  in file:
-        # assert_equal(clean(file.readline()), "Entity,Code,Date,Daily tests per thousand people ")
-        print(clean(line))
-        # assert_equal(clean(file.readline()), "Argentina,ARG,Feb 18 2020,0")
+    assert_equal(clean(file.readline()), "Entity,Code,Date,Daily tests per thousand people ")
+    assert_equal(clean(file.readline()), "Argentina,ARG,Feb 18 2020,0")
 assert_raises(ValueError, clean, 'text"moretext')
 
 print("So far, so good on the practice tests. Remember there will be additional tests applied. You should test your code to ensure it meets the specification.")

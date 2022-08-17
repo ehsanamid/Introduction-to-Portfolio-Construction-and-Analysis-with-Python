@@ -19,19 +19,31 @@ for line in lines:
             if(found):
                 temp_list.append(j)
                 if(j.endswith('"')):
-                    line2.append(",".join(temp_list))
+                    temp_str = "".join(temp_list)
+                    temp_str = temp_str.replace('"', '')
+                    temp_str = temp_str.replace(",", '')
+                    line2.append(temp_str)
                     found = False
                     temp_list = []
             else:
-                line2.append(j)
-    line_list.append(line2)
+                idx = j.find("(")
+                if(idx != -1):
+                    temp_str = j[:idx]
+                    line2.append(temp_str)
 
-list1 = line_list[1:]
+                else:
+                    line2.append(j)
+    if(found):
+        print("Error ",  line)
+    else:
+        line_list.append(line2)
+
+# list1 = line_list[1:]
 
 for i in range(5):
-    liststr = ",".join(list1[i])
+    liststr = ",".join(line_list[i])
     print(liststr)
-    res = [j for j in range(len(liststr)) if liststr.startswith('"', j)]
-    liststr1 = liststr[res[0]+1:res[1]]
-    liststr1 = liststr1.replace(",","")
-    print(liststr1)
+    # res = [j for j in range(len(liststr)) if liststr.startswith('"', j)]
+    # liststr1 = liststr[res[0]+1:res[1]]
+    # liststr1 = liststr1.replace(",","")
+    # print(liststr1)
